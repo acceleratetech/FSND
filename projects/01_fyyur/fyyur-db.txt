@@ -1,0 +1,50 @@
+ id |              name               |     city      | state |       address        |    phone     | image_link |                     facebook_link                     |                                seeking_description                                | seeking_talent |                   website                    
+----+---------------------------------+---------------+-------+----------------------+--------------+------------+-------------------------------------------------------+-----------------------------------------------------------------------------------+----------------+----------------------------------------------
+  3 | Park Square Live Music & Coffee | San Francisco | CA    | 34 Whiskey Moore Ave | 415-000-1234 |            | https://www.facebook.com/ParkSquareLiveMusicAndCoffee |                                                                                   | f              | https://www.parksquarelivemusicandcoffee.com
+  1 | The Musical Hop                 | San Francisco | CA    | 1015 Folsom Street   | 123-123-1234 |            | https://www.facebook.com/TheMusicalHop                | We are on the lookout for a local artist to play every two weeks. Please call us. | t              | https://www.themusicalhop.com
+  2 | The Dueling Pianos Bar          | New York      | NY    | 335 Delancey Street  | 914-003-1132 |            | https://www.facebook.com/theduelingpianos             |                                                                                   | f              | https://www.theduelingpianos.com
+
+
+ id |       name        |     city      | state |    phone     | image_link |                 facebook_link                 |                      seeking_description                       | seeking_venue |             website             
+----+-------------------+---------------+-------+--------------+------------+-----------------------------------------------+----------------------------------------------------------------+---------------+---------------------------------
+  4 | Guns N Petals     | San Francisco | CA    | 326-123-5000 |            | https://www.facebook.com/GunsNPetals          | Looking for shows to perform at in the San Francisco Bay Area! | t             | https://www.gunsnpetalsband.com
+  5 | Matt Quevedo      | New York      | NY    | 300-400-5000 |            | https://www.facebook.com/mattquevedo923251523 |                                                                | f             | 
+  6 | The Wild Sax Band | San Francisco | CA    | 432-325-5432 |            |                                               |                                                                | f             | 
+
+
+Insert into artist (id, name, city, state, phone, facebook_link, seeking_description, seeking_venue, website) values (1, 'Guns N Petals', 'San Francisco', 'CA', '326-123-5000', 'https://www.facebook.com/GunsNPetals', 'Looking for shows to perform at in the San Francisco Bay Area!', True, 'https://www.gunsnpetalsband.com');
+
+Insert into artist (id, name, city, state, phone, facebook_link, seeking_venue) values ( 2, 'Matt Quevedo', 'New York', 'NY', '300-400-5000', 'https://www.facebook.com/mattquevedo923251523', False);
+
+Insert into artist (id, name, city, state, phone, seeking_venue) values ( 3, 'The Wild Sax Band', 'San Francisco', 'CA', '432-325-5432', False);
+
+
+
+
+Insert into venue (id, name, city, state, address, phone, image_link, facebook_link, seeking_talent, website) values (3, 'Park Square Live Music & Coffee', 'San Francisco', 'CA', '34 Whiskey Moore Ave', '415-000-1234', 'https://images.unsplash.com/photo-1485686531765-ba63b07845a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=747&q=80', 'https://www.facebook.com/ParkSquareLiveMusicAndCoffee', False,                                                         'https://www.parksquarelivemusicandcoffee.com');
+
+
+
+Insert into venue (id, name, city, state, address, phone, image_link, facebook_link, seeking_description, website, seeking_talent) values (1, 'The Musical Hop', 'San Francisco', 'CA', '1015 Folsom Street', '123-123-1234', 'https://images.unsplash.com/photo-1543900694-133f37abaaa5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60', 'https://www.facebook.com/TheMusicalHop', 'We are on the lookout for a local artist to play every two weeks. Please call us.', 'https://www.themusicalhop.com', True);
+
+
+Insert into venue (id, name, city, state, address, phone, image_link, facebook_link, website, seeking_talent) values (2, 'The Dueling Pianos Bar', 'New York', 'NY', '335 Delancey Street', '914-003-1132', 'https://images.unsplash.com/photo-1497032205916-ac775f0649ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80', 'https://www.facebook.com/theduelingpianos', 'https://www.theduelingpianos.com', False);
+
+
+Insert into show (artist_id, venue_id, start_time) values (1, 1, '2019-05-21T21:30:00.000Z');
+
+Insert into show (artist_id, venue_id, start_time) values (3, 3, '2035-04-01T20:00:00.000Z');
+
+Insert into show (artist_id, venue_id, start_time) values (3, 3, '2035-04-08T20:00:00.000Z');
+
+Insert into show (artist_id, venue_id, start_time) values (3, 3, '2035-04-15T20:00:00.000Z');
+
+Insert into show (artist_id, venue_id, start_time) values (2, 3, '2019-06-15T23:00:00.000Z');
+
+select count(show.id) from show join venue on show.venue_id=venue.id where show.start_time>current_date;
+
+/Users/justdoit/Documents/Coding/Udacity/FSND/projects/01_fyyur/starter_code
+
+source ~/.venv/udacity/fyyur/bin/activate
+
+
