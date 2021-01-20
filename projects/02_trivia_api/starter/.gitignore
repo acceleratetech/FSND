@@ -2,6 +2,9 @@
 __pycache__
 venv
 
+#Ignore the node_modules folder
+./frontend/node_modules
+
 # OS generated files #
 ######################
 .DS_Store

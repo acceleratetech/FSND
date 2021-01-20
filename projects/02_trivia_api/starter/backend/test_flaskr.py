@@ -22,7 +22,6 @@ class TriviaTestCase(unittest.TestCase):
         with self.app.app_context():
             self.db = SQLAlchemy()
             self.db.init_app(self.app)
-            # create all tables
             self.db.create_all()
     
     def tearDown(self):
@@ -91,7 +90,6 @@ class TriviaTestCase(unittest.TestCase):
         search_term = "title"
         resp = self.client().post('/questions/search', json={'searchTerm': search_term})
         data = json.loads(resp.data)
-        #print(f'title search response: {data}')
 
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(data['success'], True)
@@ -104,7 +102,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
 
     def test_get_category_questions(self):
-        #category_id = 1
         resp = self.client().get('/categories/1/questions')
         data = json.loads(resp.data)
 
@@ -112,7 +109,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
 
     def test_fail_get_category_questions(self):
-        #category_id = 100
         resp = self.client().get('/categories/100/questions')
         data = json.loads(resp.data)
 
@@ -140,7 +136,6 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(resp.data)
 
         self.assertNotEqual(resp.status_code, 200)
-
 
 # Make the tests conveniently executable
 if __name__ == "__main__":

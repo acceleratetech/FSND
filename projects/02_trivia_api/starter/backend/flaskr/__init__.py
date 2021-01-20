@@ -9,7 +9,6 @@ from models import setup_db, Question, Category
 QUESTIONS_PER_PAGE = 10
 
 def create_app(test_config=None):
-  # create and configure the app
   app = Flask(__name__)
   setup_db(app)
   
@@ -40,8 +39,6 @@ def create_app(test_config=None):
         abort(404)
       else:
         categories = [item.type for item in data]
-        #Debug help
-        #print(f'Categories: {categories}')
         return jsonify({
           'success': True,
           'categories': categories})
@@ -100,13 +97,10 @@ def create_app(test_config=None):
   '''
   @app.route('/questions/<int:question_id>', methods = ['DELETE'])
   def delete_question(question_id):
-    #Debug help
-    #print(f'Q to be deleted: {question_id}')
     try:
       question = Question.query.filter(Question.id == question_id).one_or_none()
       if question is None:
           abort(404)
-      #print(f'Deleting Q')
       question.delete()
       return jsonify({
         'success': True
@@ -128,8 +122,6 @@ def create_app(test_config=None):
   def add_question():
     try:
       data = request.get_json()
-      #Debug help
-      #print(f'Add data: {data}')
       question = data['question']
       answer = data['answer']
       category = int(data['category']) + 1
@@ -157,14 +149,9 @@ def create_app(test_config=None):
     try:
       data = request.get_json()
       search_term = data['searchTerm']
-      selection = Question.query.filter(Question.question.like('%' + search_term + '%')).all()
+      selection = Question.query.filter(Question.question.ilike('%' + search_term + '%')).all()
       if len(selection) == 0:
-        return jsonify({
-          'success': False,
-          'questions': None,
-          'total_questions': len(selection),
-          'current_category': None
-        })
+        abort(404)
       temp = []
       for item in selection:
         temp.append(item.format())
@@ -188,7 +175,6 @@ def create_app(test_config=None):
   @app.route('/categories/<int:category_id>/questions')
   def get_category_questions(category_id):
     #Have to add 1 to the category_id to offset frontend code index 0
-    #print(f'test category: {category_id}')
     try:
       data = Question.query.filter(Question.category==category_id+1).all()
       if len(data) == 0:
@@ -221,12 +207,9 @@ def create_app(test_config=None):
     try:
       data = request.get_json()
       previous_questions = data['previous_questions']
-      quiz_category = data['quiz_category']['type'] #Using category type as fromtend assigns id 0 to both ALL amd Science
 
-      #Debug help
-      #print(f'Quiz req data: {data}')
-      #print(f'Previous questions: {previous_questions}')
-      #print(f'Quiz category: {quiz_category}')
+      #Using category type as fromtend assigns id 0 to both ALL amd Science
+      quiz_category = data['quiz_category']['type'] 
 
       if quiz_category=='click':
         selection = Question.query.filter(Question.id.notin_(previous_questions)).all()
@@ -238,9 +221,6 @@ def create_app(test_config=None):
           'success': False,
           'question': None
         })
-      
-      #Debug help
-      #print(f'Play quiz: {selection}')
 
       resp_data = random.choice(selection).format()
       return jsonify({
