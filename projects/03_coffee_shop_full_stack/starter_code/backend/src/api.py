@@ -33,6 +33,7 @@ def get_drinks():
     try:
         print('Call to get_drinks')
         data = db.session.query(Drink).order_by(Drink.id).all()
+        print(f'len(data) = {len(data)}')
         
         if len(data) == 0:
             print('get_drinks: No data returned!')
@@ -41,8 +42,8 @@ def get_drinks():
         print(f'get_drinks data: {data}')
         
         drinks = []
-        for item in temp:
-            print(f'Item in get drinks {data}')
+        for item in data:
+            print(f'Item in get_drinks {data}')
             drinks.append(item.short())
         print(f'get_drinks: {drinks}')
         
@@ -50,8 +51,8 @@ def get_drinks():
             'success': True,
             'drinks': drinks
         })
-    except:
-        abort(404)
+    except Exception as e:
+        print(f'get_drinks exception {e}')
 
 '''
 @TODO implement endpoint
