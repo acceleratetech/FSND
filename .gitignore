@@ -2,8 +2,12 @@
 __pycache__
 venv
 
+#Ignore file containing secrets
+.env
+
 #Ignore the node_modules folder
 ./projects/02_trivia_api/starter/frontend/node_modules
+./projects/03_coffee_shop_full_stack/starter_code/frontend/node_modules
 
 # OS generated files #
 ######################
